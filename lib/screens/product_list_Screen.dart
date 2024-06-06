@@ -10,6 +10,7 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -19,7 +20,7 @@ class ProductListScreen extends StatelessWidget {
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
+                    color: Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Row(
@@ -52,8 +53,8 @@ class ProductListScreen extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 2 / 2.4,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 30,
+                  crossAxisSpacing: 30,
                 ),
               ),
             )
@@ -68,7 +69,7 @@ class ProductListScreen extends StatelessWidget {
       width: 160,
       height: 216,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300,
+        color: AppColors.whiteApp,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(

@@ -147,7 +147,7 @@ class HomeScreen extends StatelessWidget {
             string,
             style: const TextStyle(
               fontFamily: 'SB',
-              color: AppColors.greyApp,
+              color: AppColors.background,
               fontSize: 12,
             ),
           )
