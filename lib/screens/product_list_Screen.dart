@@ -20,7 +20,7 @@ class ProductListScreen extends StatelessWidget {
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: Colors.grey.shade400,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Row(

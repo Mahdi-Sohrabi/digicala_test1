@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:digicala_test1/screens/category_screen.dart';
 import 'package:digicala_test1/screens/home_screen.dart';
 import 'package:digicala_test1/screens/product_list_Screen.dart';
+import 'package:digicala_test1/screens/profile_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +27,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.blueApp,
-        ),
         body: IndexedStack(
           index: selectedBotonNavigation,
           children: getScreens(),
@@ -116,7 +113,7 @@ class _MyAppState extends State<MyApp> {
                   label: 'دسته بندی',
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset('assets/images/icon_profile.png'),
+                  icon: Image.asset('assets/images/icon_home.png'),
                   activeIcon: Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Container(
@@ -128,11 +125,10 @@ class _MyAppState extends State<MyApp> {
                           offset: Offset(0.0, 13),
                         )
                       ]),
-                      child:
-                          Image.asset('assets/images/icon_profile_active.png'),
+                      child: Image.asset('assets/images/icon_home_active.png'),
                     ),
                   ),
-                  label: 'حساب کاربری',
+                  label: 'خانه',
                 ),
               ],
             ),
@@ -144,10 +140,10 @@ class _MyAppState extends State<MyApp> {
 
   List<Widget> getScreens() {
     return <Widget>[
-      HomeScreen(),
-      CategoryScreen(),
+      ProfileScreen(),
       ProductListScreen(),
       CategoryScreen(),
+      HomeScreen(),
     ];
   }
 }

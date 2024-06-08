@@ -3,6 +3,7 @@
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:digicala_test1/widgets/banner_slider.dart';
+import 'package:digicala_test1/widgets/category_item_chip.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: Colors.grey.shade400,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Row(
@@ -73,9 +74,9 @@ class HomeScreen extends StatelessWidget {
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: CategoryhorizontalItemList(),
+                      return const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: CategoryItemChip(),
                       );
                     },
                   ),
@@ -260,52 +261,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget CategoryhorizontalItemList() {
-    return Column(
-      children: [
-        Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              //ShapeDecoration.....This for container Squircle(circle,Square)
-              decoration: ShapeDecoration(
-                color: Colors.amber,
-                //Tihs For Shadow Under container
-                shadows: const [
-                  BoxShadow(
-                    color: Colors.amber,
-                    //This For Size Shadow
-                    blurRadius: 25,
-                    //This For Shadow Power
-                    spreadRadius: -12,
-                    //This For Shadow To horizontal and vertical
-                    offset: Offset(0.0, 15),
-                  ),
-                ],
-                //This required Proprty For widget ShapeDecoration
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-            ),
-            const Icon(
-              Icons.mouse,
-              color: Colors.white,
-              size: 32,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          'همه',
-          style: AppStyles.itemGrouping,
-        )
-      ],
     );
   }
 }
