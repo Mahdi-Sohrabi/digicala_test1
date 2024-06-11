@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:digicala_test1/utils/constants/colors.dart';
+import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -478,9 +479,137 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.only(top: 20, right: 44, left: 44),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    PriceTagButton(),
+                    AddToBasketButton(),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
+    );
+  }
+}
+
+class AddToBasketButton extends StatelessWidget {
+  const AddToBasketButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          height: 60,
+          width: 140,
+          decoration: BoxDecoration(
+            color: AppColors.blueApp,
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Container(
+              height: 53,
+              width: 160,
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+              ),
+              child: const Center(
+                child: Text(
+                  'افزودن به سبد خرید',
+                  style: TextStyle(
+                    fontFamily: 'sb',
+                    color: AppColors.whiteApp,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PriceTagButton extends StatelessWidget {
+  const PriceTagButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          height: 60,
+          width: 140,
+          decoration: BoxDecoration(
+            color: AppColors.greenApp,
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Container(
+              height: 53,
+              width: 160,
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Text('تومان', style: AppStyles.customStyleFont),
+                    const SizedBox(width: 5),
+                    const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '49,500,000',
+                          style: AppStyles.itemPric,
+                        ),
+                        Text(
+                          '48,800,000',
+                          style: AppStyles.itemNewPric,
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.redApp,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                        child: Text(
+                          '%3',
+                          style: AppStyles.customStyleFont,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
