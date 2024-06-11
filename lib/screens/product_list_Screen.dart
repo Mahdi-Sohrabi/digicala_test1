@@ -69,7 +69,7 @@ class ProductListScreen extends StatelessWidget {
       width: 160,
       height: 216,
       decoration: BoxDecoration(
-        color: AppColors.whiteApp,
+        color: AppColors.background,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(

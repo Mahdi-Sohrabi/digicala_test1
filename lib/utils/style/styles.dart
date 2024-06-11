@@ -7,12 +7,12 @@ class AppStyles {
       TextStyle(fontFamily: 'SB', color: AppColors.darkApp, fontSize: 12);
   static const TextStyle itemPric = TextStyle(
     fontFamily: 'SM',
-    color: AppColors.whiteApp,
+    color: AppColors.background,
     fontSize: 12,
     decoration: TextDecoration.lineThrough,
   );
   static const TextStyle itemNewPric =
-      TextStyle(fontFamily: 'SM', color: AppColors.whiteApp, fontSize: 16);
+      TextStyle(fontFamily: 'SM', color: AppColors.background, fontSize: 16);
   static const TextStyle customStyleFont =
-      TextStyle(fontFamily: 'SM', color: AppColors.whiteApp, fontSize: 12);
+      TextStyle(fontFamily: 'SM', color: AppColors.background, fontSize: 12);
 }
