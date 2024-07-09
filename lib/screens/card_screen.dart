@@ -54,13 +54,13 @@ class CardScreen extends StatelessWidget {
                 ),
                 const SliverPadding(
                   padding: EdgeInsets.only(
-                    bottom: 40,
+                    bottom: 100,
                   ),
                 )
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44),
+              padding: const EdgeInsets.only(right: 44, left: 44, bottom: 20),
               child: SizedBox(
                 height: 53,
                 width: MediaQuery.of(context).size.width,

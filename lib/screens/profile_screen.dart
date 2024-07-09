@@ -1,7 +1,6 @@
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/widgets/category_item_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

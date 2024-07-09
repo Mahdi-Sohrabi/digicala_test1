@@ -64,6 +64,7 @@ class ProductListScreen extends StatelessWidget {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget ProductItem() {
     return Container(
       width: 160,
