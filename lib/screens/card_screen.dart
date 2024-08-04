@@ -165,7 +165,7 @@ class CardItem extends StatelessWidget {
             child: DottedLine(
               lineThickness: 2.0,
               dashGapLength: 4,
-              dashColor: AppColors.greyApp.withOpacity(0.5),
+              dashColor: AppColors.greyApp.withOpacity(0.5), 
               dashLength: 8,
               dashGapColor: Colors.transparent,
             ),
