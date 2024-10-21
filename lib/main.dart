@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:digicala_test1/data/datasource/repasitory/authentication_datasource.dart';
+import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/screens/card_screen.dart';
 import 'package:digicala_test1/screens/home_screen.dart';
 import 'package:digicala_test1/screens/product_list_Screen.dart';
@@ -7,7 +9,9 @@ import 'package:digicala_test1/screens/profile_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  await getItInit();
+
   runApp(const MyApp());
 }
 
@@ -27,9 +31,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: IndexedStack(
-          index: selectedBotonNavigation,
-          children: getScreens(),
+        body: SafeArea(
+          child: Center(
+            child: ElevatedButton(
+              onPressed: () {
+                var auth = AuthenticationRemote();
+                auth.regster('mahdi0915_3', '12345678', '12345678');
+              },
+              child: Text('data'),
+            ),
+          ),
         ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
