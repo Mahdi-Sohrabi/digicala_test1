@@ -7,7 +7,6 @@ import 'package:digicala_test1/screens/home_screen.dart';
 import 'package:digicala_test1/screens/product_list_Screen.dart';
 import 'package:digicala_test1/screens/profile_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
