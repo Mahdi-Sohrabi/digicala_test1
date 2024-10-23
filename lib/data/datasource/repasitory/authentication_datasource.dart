@@ -2,9 +2,15 @@ import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/util/apiException.dart';
 import 'package:dio/dio.dart';
 
-class AuthenticationRemote {
+abstract class IAuthentication {
+  Future<void> regster(
+      String username, String password, String passwordConfirm);
+}
+
+class AuthenticationRemote implements IAuthentication {
   final Dio _dio = locator.get();
 
+  @override
   Future<void> regster(
       String username, String password, String passwordConfirm) async {
     try {
