@@ -1,12 +1,13 @@
 import 'dart:ui';
 
-import 'package:digicala_test1/data/datasource/repasitory/authentication_datasource.dart';
+import 'package:digicala_test1/data/Repository/authentication_repository.dart';
 import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/screens/card_screen.dart';
 import 'package:digicala_test1/screens/home_screen.dart';
 import 'package:digicala_test1/screens/product_list_Screen.dart';
 import 'package:digicala_test1/screens/profile_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -34,9 +35,17 @@ class _MyAppState extends State<MyApp> {
         body: SafeArea(
           child: Center(
             child: ElevatedButton(
-              onPressed: () {
-                var auth = AuthenticationRemote();
-                auth.regster('mahdi0915_3', '12345678', '12345678');
+              onPressed: () async {
+                var either = await AuthenticationRepository()
+                    .login('Mahdi0915_17', '123456789');
+                either.fold(
+                  (errorMessage) {
+                    print(errorMessage);
+                  },
+                  (successMessage) {
+                    print(successMessage);
+                  },
+                );
               },
               child: Text('data'),
             ),
