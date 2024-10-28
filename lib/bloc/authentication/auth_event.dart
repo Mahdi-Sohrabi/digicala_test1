@@ -4,5 +4,5 @@ class AuthLoginRequest extends AuthEvent {
   String username;
   String password;
 
-  AuthLoginRequest(this.password, this.username);
+  AuthLoginRequest(this.username, this.password);
 }
