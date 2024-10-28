@@ -6,8 +6,10 @@ import 'package:digicala_test1/screens/card_screen.dart';
 import 'package:digicala_test1/screens/home_screen.dart';
 import 'package:digicala_test1/screens/product_list_Screen.dart';
 import 'package:digicala_test1/screens/profile_screen.dart';
+import 'package:digicala_test1/util/auth_manager.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -34,25 +36,39 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
-          child: Center(
-            child: ElevatedButton(
-              onPressed: () async {
-                // var either = await AuthenticationRepository()
-                //     .login('Mahdi0915_17', '123456789');
-                var shared = locator.get<SharedPreferences>();
-
-                print(shared.getString('access_token'));
-                // either.fold(
-                //   (errorMessage) {
-                //     print(errorMessage);
-                //   },
-                //   (successMessage) {
-                //     print(successMessage);
-                //   },
-                // );
-              },
-              child: Text('data'),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  // ignore: unused_local_variable
+                  var either = await AuthenticationRepository()
+                      .login('Mahdi0915_17', '123456789');
+                },
+                child: Text('Login'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  AuthManager.loguot();
+                },
+                child: Text('Logout'),
+              ),
+              ValueListenableBuilder(
+                  valueListenable: AuthManager.authChangeNotifire,
+                  builder: ((context, value, child) {
+                    if (value == null || value.isEmpty) {
+                      return Text(
+                        'شما وارد نشده اید',
+                        style: TextStyle(fontSize: 20),
+                      );
+                    } else {
+                      return Text(
+                        'شما وارد شده اید',
+                        style: TextStyle(fontSize: 20),
+                      );
+                    }
+                  }))
+            ],
           ),
         ),
         bottomNavigationBar: ClipRRect(
