@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:digicala_test1/data/datasource/repasitory/authentication_datasource.dart';
 import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/util/apiException.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IAuthRepository {
   Future<Either<String, String>> rgister(
@@ -12,7 +13,7 @@ abstract class IAuthRepository {
 
 class AuthenticationRepository extends IAuthRepository {
   final IAuthenticationDatasource _datasource = locator.get();
-
+  final SharedPreferences _sharedPref = locator.get();
   @override
   Future<Either<String, String>> rgister(
       String username, String password, String passwordConfirm) async {
@@ -29,6 +30,7 @@ class AuthenticationRepository extends IAuthRepository {
     try {
       String token = await _datasource.login(username, password);
       if (token.isNotEmpty) {
+        _sharedPref.setString('access_token', token);
         return right('شما وارد شدید');
       } else {
         return left('خطایی در ورود پیش آمده');

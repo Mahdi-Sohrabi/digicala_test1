@@ -8,8 +8,10 @@ import 'package:digicala_test1/screens/product_list_Screen.dart';
 import 'package:digicala_test1/screens/profile_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await getItInit();
 
   runApp(const MyApp());
@@ -35,16 +37,19 @@ class _MyAppState extends State<MyApp> {
           child: Center(
             child: ElevatedButton(
               onPressed: () async {
-                var either = await AuthenticationRepository()
-                    .login('Mahdi0915_17', '123456789');
-                either.fold(
-                  (errorMessage) {
-                    print(errorMessage);
-                  },
-                  (successMessage) {
-                    print(successMessage);
-                  },
-                );
+                // var either = await AuthenticationRepository()
+                //     .login('Mahdi0915_17', '123456789');
+                var shared = locator.get<SharedPreferences>();
+
+                print(shared.getString('access_token'));
+                // either.fold(
+                //   (errorMessage) {
+                //     print(errorMessage);
+                //   },
+                //   (successMessage) {
+                //     print(successMessage);
+                //   },
+                // );
               },
               child: Text('data'),
             ),
