@@ -21,4 +21,10 @@ class AuthManager {
     _sharedPerf.clear();
     authChangeNotifire.value = null;
   }
+
+  //is Login or Logout??
+  static bool isLogin() {
+    String token = readAuth();
+    return token.isEmpty;
+  }
 }
