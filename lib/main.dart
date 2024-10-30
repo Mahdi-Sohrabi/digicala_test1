@@ -1,15 +1,12 @@
 import 'dart:ui';
 
-import 'package:digicala_test1/bloc/authentication/auth_bloc.dart';
 import 'package:digicala_test1/di/di.dart';
-import 'package:digicala_test1/screens/Login_screen.dart';
 import 'package:digicala_test1/screens/card_screen.dart';
+import 'package:digicala_test1/screens/category_screen.dart';
 import 'package:digicala_test1/screens/home_screen.dart';
-import 'package:digicala_test1/screens/product_list_Screen.dart';
 import 'package:digicala_test1/screens/profile_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,10 +31,15 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: BlocProvider(
-          create: (context) => AuthBloc(),
-          child: LoginScreen(),
+        body: IndexedStack(
+          index: selectedBotonNavigation,
+          children: getScreens(),
         ),
+
+        // body: BlocProvider(
+        //   create: (context) => AuthBloc(),
+        //   child: LoginScreen(),
+        // ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
@@ -149,7 +151,7 @@ class _MyAppState extends State<MyApp> {
     return <Widget>[
       const ProfileScreen(),
       const CardScreen(),
-      const ProductListScreen(),
+      const CategoryScreen(),
       const HomeScreen(),
     ];
   }

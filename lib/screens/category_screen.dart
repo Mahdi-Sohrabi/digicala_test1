@@ -1,3 +1,4 @@
+import 'package:digicala_test1/data/Repository/category_repository.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,31 @@ class CategoryScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: ElevatedButton(
+                onPressed: () async {
+                  var repository = CategoryRepository();
+                  var either = await repository.getCategorys();
+                  either.fold(
+                    (l) {
+                      // ignore: avoid_print
+                      print(l);
+                    },
+                    (r) {
+                      // ignore: avoid_function_literals_in_foreach_calls
+                      r.forEach(
+                        (element) {
+                          // ignore: avoid_print
+                          print(element.title);
+                          print(element.id);
+                        },
+                      );
+                    },
+                  );
+                },
+                child: Text('get data'),
               ),
             ),
             SliverPadding(

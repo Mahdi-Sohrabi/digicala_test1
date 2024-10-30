@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:digicala_test1/data/datasource/repasitory/authentication_datasource.dart';
+import 'package:digicala_test1/data/datasource/authentication_datasource.dart';
 import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/util/apiException.dart';
 import 'package:digicala_test1/util/auth_manager.dart';
@@ -14,6 +14,7 @@ abstract class IAuthRepository {
 
 class AuthenticationRepository extends IAuthRepository {
   final IAuthenticationDatasource _datasource = locator.get();
+  // ignore: unused_field
   final SharedPreferences _sharedPref = locator.get();
   @override
   Future<Either<String, String>> rgister(

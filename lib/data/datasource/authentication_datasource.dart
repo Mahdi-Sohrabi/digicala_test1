@@ -24,6 +24,7 @@ class AuthenticationRemote implements IAuthenticationDatasource {
           'passwordConfirm': passwordConfirm,
         },
       );
+      // ignore: avoid_print
       print('${response.statusCode}');
       // ignore: deprecated_member_use
     } on DioError catch (ex) {

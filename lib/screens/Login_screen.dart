@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:digicala_test1/bloc/authentication/auth_bloc.dart';
 import 'package:digicala_test1/bloc/authentication/auth_event.dart';
 import 'package:digicala_test1/bloc/authentication/auth_state.dart';
