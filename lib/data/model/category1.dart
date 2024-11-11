@@ -15,11 +15,13 @@ class Category1 {
     this.icon,
   );
 
+//http://127.0.0.1:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
+
   factory Category1.fromMapJson(Map<String, dynamic> jsonObject) {
     return Category1(
       jsonObject['collectionId'],
       jsonObject['id'],
-      jsonObject['thumbnail'],
+      'https://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']} /${jsonObject['thumbnail']}',
       jsonObject['title'],
       jsonObject['color'],
       jsonObject['icon'],
