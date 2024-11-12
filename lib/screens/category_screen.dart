@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:digicala_test1/data/Repository/category_repository.dart';
 import 'package:digicala_test1/data/model/category1.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
@@ -61,8 +59,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       print(l);
                     },
                     (r) {
-                      r.forEach((e) {
-                        print(e.thumbnail);
+                      setState(() {
+                        list = r;
                       });
                     },
                   );
@@ -91,9 +89,11 @@ class _ListCategory extends StatelessWidget {
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       sliver: SliverGrid(
-        delegate: SliverChildBuilderDelegate(
-            (context, index) => CachedImage(imageUrl: list?[index].thumbnail),
-            childCount: list?.length ?? 0),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return CachedImage(
+            imageUrl: list?[index].thumbnail,
+          );
+        }, childCount: list?.length ?? 0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 20,

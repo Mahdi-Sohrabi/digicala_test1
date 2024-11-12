@@ -21,7 +21,7 @@ class Category1 {
     return Category1(
       jsonObject['collectionId'],
       jsonObject['id'],
-      'https://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']} /${jsonObject['thumbnail']}',
+      'https://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['thumbnail']}',
       jsonObject['title'],
       jsonObject['color'],
       jsonObject['icon'],
