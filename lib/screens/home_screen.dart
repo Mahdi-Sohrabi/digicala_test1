@@ -1,5 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
-
+import 'package:digicala_test1/data/Repository/banner_repository.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:digicala_test1/widgets/banner_slider.dart';
@@ -16,6 +15,23 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
+            SliverToBoxAdapter(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    var response = await BannerRepository().getBanners();
+                    response.fold(
+                      (l) {
+                        print(l);
+                      },
+                      (r) {
+                        r.forEach((element) {
+                          print(element.id);
+                        });
+                      },
+                    );
+                  },
+                  child: Text('data')),
+            ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(right: 30, left: 30, top: 20),
