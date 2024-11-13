@@ -90,6 +90,7 @@ class _ListCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      //Be careful, you may make a mistake in putting this ->()<- in making the sliver grid
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(((context, index) {
           return CachedImage(
