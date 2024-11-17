@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CachedImage extends StatelessWidget {
+  double radius;
   String? imageUrl;
-  CachedImage({super.key, this.imageUrl});
+  CachedImage({super.key, this.imageUrl, this.radius = 0});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(radius)),
       child: CachedNetworkImage(
         fit: BoxFit.cover,
         placeholder: (context, url) => Container(color: Colors.grey),

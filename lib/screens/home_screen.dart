@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
               _getSearchBox(),
+              SliverToBoxAdapter(child: SizedBox(height: 15)),
               if (state is HomeRequestSccessState) ...[
                 state.bannerList.fold(
                   (exceptionMessege) {

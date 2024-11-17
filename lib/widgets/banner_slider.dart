@@ -11,34 +11,38 @@ class BannerSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = PageController(viewportFraction: 0.8);
+    var controller = PageController(viewportFraction: 0.9);
     return Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         SizedBox(
-          height: 200,
+          height: 177,
           child: PageView.builder(
             //viewportFraction..... Form 0.1 to 1 , Size To Screen
             controller: controller,
             itemCount: bannerList.length,
             itemBuilder: (context, index) {
-              return CachedImage(
-                imageUrl: bannerList[index].thumbnail,
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 6),
+                child: CachedImage(
+                  imageUrl: bannerList[index].thumbnail,
+                  radius: 15,
+                ),
               );
             },
           ),
         ),
         Positioned(
-          bottom: 30,
+          bottom: 15,
           //SmoothPageIndicator.....this Widget For Indicator To Banner Slider
           child: SmoothPageIndicator(
             controller: controller,
-            count: 3,
+            count: bannerList.length,
             //effect.....Style For Indicator(Size,Type,Color,...)
             effect: const ExpandingDotsEffect(
               expansionFactor: 4,
-              dotHeight: 10,
-              dotWidth: 10,
+              dotHeight: 7,
+              dotWidth: 7,
               dotColor: Colors.white,
               activeDotColor: AppColors.blueApp,
             ),
