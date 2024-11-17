@@ -1,9 +1,13 @@
+import 'package:digicala_test1/data/model/banner.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
+import 'package:digicala_test1/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+// ignore: must_be_immutable
 class BannerSlider extends StatelessWidget {
-  const BannerSlider({super.key});
+  List<BannerCampain> bannerList;
+  BannerSlider(this.bannerList, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +20,10 @@ class BannerSlider extends StatelessWidget {
           child: PageView.builder(
             //viewportFraction..... Form 0.1 to 1 , Size To Screen
             controller: controller,
-            itemCount: 3,
+            itemCount: bannerList.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(20),
-                child: Container(
-                  height: 200,
-                  color: Colors.amber,
-                ),
+              return CachedImage(
+                imageUrl: bannerList[index].thumbnail,
               );
             },
           ),

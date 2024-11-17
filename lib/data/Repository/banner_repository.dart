@@ -6,13 +6,13 @@ import 'package:digicala_test1/util/apiException.dart';
 import '../datasource/banner_datasource.dart';
 
 abstract class IBannerRepository {
-  Future<Either<String, List<Banner>>> getBanners();
+  Future<Either<String, List<BannerCampain>>> getBanners();
 }
 
 class BannerRepository extends IBannerRepository {
   final IBannerDatasource _datasource = locator.get();
   @override
-  Future<Either<String, List<Banner>>> getBanners() async {
+  Future<Either<String, List<BannerCampain>>> getBanners() async {
     try {
       var response = await _datasource.getBanners();
       return right(response);

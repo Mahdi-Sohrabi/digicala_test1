@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:digicala_test1/bloc/category/category_bloc.dart';
+import 'package:digicala_test1/bloc/home/home_bloc.dart';
 import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/screens/card_screen.dart';
 import 'package:digicala_test1/screens/category_screen.dart';
@@ -18,9 +19,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({
-    super.key,
-  });
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -157,7 +156,10 @@ class _MyAppState extends State<MyApp> {
         create: (context) => CategoryBloc(),
         child: CategoryScreen(),
       ),
-      const HomeScreen(),
+      BlocProvider(
+        create: (context) => HomeBloc(),
+        child: HomeScreen(),
+      )
     ];
   }
 }

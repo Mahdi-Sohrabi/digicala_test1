@@ -84,6 +84,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
 class _ListCategory extends StatelessWidget {
   final List<Category1>? list;
+  // ignore: use_super_parameters
   const _ListCategory({Key? key, required this.list}) : super(key: key);
 
   @override
