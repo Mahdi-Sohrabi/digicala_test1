@@ -34,10 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
             slivers: [
               if (state is HomeLodingState) ...[
                 SliverToBoxAdapter(
-                    child: SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: CircularProgressIndicator(),
+                    child: Center(
+                  child: SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: CircularProgressIndicator(),
+                  ),
                 ))
               ],
               _getSearchBox(),
@@ -222,24 +224,17 @@ class _getMostViewedTitle extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding:
-            const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 32),
+            const EdgeInsets.only(left: 20, right: 40, bottom: 15, top: 15),
         child: Row(
           children: [
-            Image.asset('assets/images/icon_left_categroy.png'),
-            const SizedBox(width: 10),
-            const Text(
-              'مشاهده همه',
-              style: TextStyle(fontFamily: 'SB', color: AppColors.blueApp),
-            ),
+            Text(('پر بازدید ترین ها'),
+                style: const TextStyle(
+                    fontFamily: 'SB', color: AppColors.greyApp, fontSize: 12)),
             const Spacer(),
-            Text(
-              ('پر بازدید ترین ها'),
-              style: const TextStyle(
-                fontFamily: 'SB',
-                color: AppColors.background,
-                fontSize: 12,
-              ),
-            )
+            const Text('مشاهده همه',
+                style: TextStyle(fontFamily: 'SB', color: AppColors.blueApp)),
+            const SizedBox(width: 10),
+            Image.asset('assets/images/icon_left_categroy.png'),
           ],
         ),
       ),
@@ -390,22 +385,17 @@ class _getBestSellerTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
+        padding:
+            const EdgeInsets.only(left: 20, right: 44, bottom: 15, top: 15),
         child: Row(
           children: [
-            const Text(
-              'پرفروش ترین‌ ها',
-              style: TextStyle(
-                  fontFamily: 'sb', fontSize: 12, color: AppColors.greyApp),
-            ),
+            const Text('پرفروش ترین‌ ها',
+                style: TextStyle(
+                    fontFamily: 'sb', fontSize: 12, color: AppColors.greyApp)),
             const Spacer(),
-            const Text(
-              'مشاهده همه',
-              style: TextStyle(fontFamily: 'sb', color: AppColors.blueApp),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
+            const Text('مشاهده همه',
+                style: TextStyle(fontFamily: 'sb', color: AppColors.blueApp)),
+            const SizedBox(width: 10),
             Image.asset('assets/images/icon_left_categroy.png'),
           ],
         ),
@@ -425,7 +415,10 @@ class _getCategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(right: 20, top: 10),
+        padding: const EdgeInsets.only(
+          right: 20,
+          top: 10,
+        ),
         child: SizedBox(
           height: 100,
           child: ListView.builder(
@@ -453,9 +446,9 @@ class _getCategoryListTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.only(right: 20, top: 20, bottom: 20),
+        padding: EdgeInsets.only(right: 30, top: 20, bottom: 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               'دسته بندی',
@@ -503,10 +496,11 @@ class _getSearchBox extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: 16),
-              Image.asset('assets/images/icon_apple_blue.png'),
+              Image.asset('assets/images/icon_search.png'),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  textAlign: TextAlign.end,
+                  textAlign: TextAlign.start,
                   'جستجوی محصولات',
                   style: TextStyle(
                     color: Colors.grey.shade700,
@@ -515,8 +509,7 @@ class _getSearchBox extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
-              Image.asset('assets/images/icon_search.png'),
+              Image.asset('assets/images/icon_apple_blue.png'),
               const SizedBox(width: 16),
             ],
           ),

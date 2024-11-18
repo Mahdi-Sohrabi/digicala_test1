@@ -26,7 +26,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int selectedBotonNavigation = 0;
+  int selectedBotonNavigation = 3;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -158,7 +158,8 @@ class _MyAppState extends State<MyApp> {
       ),
       BlocProvider(
         create: (context) => HomeBloc(),
-        child: HomeScreen(),
+        child: Directionality(
+            textDirection: TextDirection.rtl, child: HomeScreen()),
       )
     ];
   }
