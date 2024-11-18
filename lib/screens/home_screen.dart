@@ -2,6 +2,7 @@ import 'package:digicala_test1/bloc/home/home_bloc.dart';
 import 'package:digicala_test1/bloc/home/home_event.dart';
 import 'package:digicala_test1/bloc/home/home_state.dart';
 import 'package:digicala_test1/data/model/banner.dart';
+import 'package:digicala_test1/data/model/category1.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:digicala_test1/widgets/banner_slider.dart';
@@ -33,8 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
             slivers: [
               if (state is HomeLodingState) ...[
                 SliverToBoxAdapter(
+                    child: SizedBox(
+                  height: 24,
+                  width: 24,
                   child: CircularProgressIndicator(),
-                )
+                ))
               ],
               _getSearchBox(),
               SliverToBoxAdapter(child: SizedBox(height: 15)),
@@ -49,7 +53,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
               _getCategoryListTitle(),
-              _getCategoryList(),
+              if (state is HomeRequestSccessState) ...[
+                state.categoryList.fold(
+                  (exceptionMessege) {
+                    return SliverToBoxAdapter(child: Text(exceptionMessege));
+                  },
+                  (categoryList) {
+                    return _getCategoryList(categoryList);
+                  },
+                )
+              ],
               _getBestSellerTitle(),
               _getBestSellerPrioducts(),
               _getMostViewedTitle(),
@@ -402,7 +415,9 @@ class _getBestSellerTitle extends StatelessWidget {
 }
 
 class _getCategoryList extends StatelessWidget {
-  const _getCategoryList({
+  List<Category1> listCategory;
+  _getCategoryList(
+    this.listCategory, {
     super.key,
   });
 
@@ -415,10 +430,11 @@ class _getCategoryList extends StatelessWidget {
           height: 100,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
+            itemCount: listCategory.length,
             itemBuilder: (context, index) {
-              return const Padding(
+              return Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: CategoryItemChip(),
+                child: CategoryItemChip(listCategory[index]),
               );
             },
           ),

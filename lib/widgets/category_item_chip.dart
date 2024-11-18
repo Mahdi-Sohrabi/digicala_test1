@@ -1,11 +1,17 @@
+import 'package:digicala_test1/data/model/category1.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
+import 'package:digicala_test1/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItemChip extends StatelessWidget {
-  const CategoryItemChip({super.key});
+  final Category1 category;
+  const CategoryItemChip(this.category, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    String categoryColor = 'ff${category.color}';
+    int hexColor = int.parse(categoryColor, radix: 16);
+
     return Column(
       children: [
         Stack(
@@ -16,11 +22,12 @@ class CategoryItemChip extends StatelessWidget {
               height: 56,
               //ShapeDecoration.....This for container Squircle(circle,Square)
               decoration: ShapeDecoration(
-                color: Colors.amber,
+                color: Color(hexColor),
                 //Tihs For Shadow Under container
-                shadows: const [
+                shadows: [
                   BoxShadow(
-                    color: Colors.amber,
+                    color: Color(hexColor),
+
                     //This For Size Shadow
                     blurRadius: 25,
                     //This For Shadow Power
@@ -35,16 +42,18 @@ class CategoryItemChip extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(
-              Icons.mouse,
-              color: Colors.white,
-              size: 32,
-            ),
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: CachedImage(
+                imageUrl: category.icon,
+              ),
+            )
           ],
         ),
         const SizedBox(height: 10),
-        const Text(
-          'همه',
+        Text(
+          category.title ?? 'محصول',
           style: AppStyles.itemGrouping,
         )
       ],
