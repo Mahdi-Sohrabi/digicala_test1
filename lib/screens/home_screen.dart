@@ -3,10 +3,12 @@ import 'package:digicala_test1/bloc/home/home_event.dart';
 import 'package:digicala_test1/bloc/home/home_state.dart';
 import 'package:digicala_test1/data/model/banner.dart';
 import 'package:digicala_test1/data/model/category1.dart';
+import 'package:digicala_test1/data/model/product.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:digicala_test1/widgets/banner_slider.dart';
 import 'package:digicala_test1/widgets/category_item_chip.dart';
+import 'package:digicala_test1/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +68,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
               _getBestSellerTitle(),
-              _getBestSellerPrioducts(),
+              if (state is HomeRequestSccessState) ...[
+                state.productList.fold(
+                  (exceptionMessege) {
+                    return SliverToBoxAdapter(child: Text(exceptionMessege));
+                  },
+                  (productList) {
+                    return _getBestSellerPrioducts(productList);
+                  },
+                )
+              ],
               _getMostViewedTitle(),
               _getMostViewedProducts(),
             ],
@@ -243,7 +254,9 @@ class _getMostViewedTitle extends StatelessWidget {
 }
 
 class _getBestSellerPrioducts extends StatelessWidget {
-  const _getBestSellerPrioducts({
+  List<Product> productList;
+  _getBestSellerPrioducts(
+    this.productList, {
     super.key,
   });
 
@@ -255,119 +268,10 @@ class _getBestSellerPrioducts extends StatelessWidget {
         child: SizedBox(
           height: 200,
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: productList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Container(
-                  width: 160,
-                  height: 216,
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const SizedBox(width: double.infinity),
-                          Image.asset('assets/images/iphone.png'),
-                          Positioned(
-                            top: 10,
-                            right: 10,
-                            child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Image.asset(
-                                  'assets/images/active_fav_product.png'),
-                            ),
-                          ),
-                          Positioned(
-                            left: 5,
-                            bottom: 0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.redApp,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 1),
-                                child: Text(
-                                  '%3',
-                                  style: AppStyles.customStyleFont,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Text(
-                            'آیفون 13 پرومکس',
-                            style: AppStyles.itemGrouping,
-                          ),
-                          Container(
-                            height: 53,
-                            decoration: const BoxDecoration(
-                              color: AppColors.blueApp,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.blueApp,
-                                  blurRadius: 25,
-                                  spreadRadius: -12,
-                                  offset: Offset(0.0, 15),
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  const Text('تومان',
-                                      style: AppStyles.customStyleFont),
-                                  const SizedBox(width: 5),
-                                  const Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '49,500,000',
-                                        style: AppStyles.itemPric,
-                                      ),
-                                      Text(
-                                        '48,800,000',
-                                        style: AppStyles.itemNewPric,
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  SizedBox(
-                                    width: 25,
-                                    child: Image.asset(
-                                        'assets/images/icon_right_arrow_cricle.png'),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return ProductItem(productList[index]);
             },
           ),
         ),

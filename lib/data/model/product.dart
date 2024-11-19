@@ -1,16 +1,16 @@
-import 'package:flutter/foundation.dart';
-
 class Product {
-  String? id;
-  String? collectionId;
-  String? thumbnail;
-  String? description;
-  String? discountprice;
-  String? price;
-  String? popularity;
-  String? name;
-  int? quantity;
-  String? category;
+  String id;
+  String collectionId;
+  String thumbnail;
+  String description;
+  int discountprice;
+  int price;
+  String popularity;
+  String name;
+  int quantity;
+  String category;
+  int? realPrice;
+  num? persent;
 
   Product(
     this.id,
@@ -23,15 +23,18 @@ class Product {
     this.name,
     this.quantity,
     this.category,
-  );
+  ) {
+    realPrice = price - discountprice;
+    persent = ((price - realPrice!) / price) * 100;
+  }
 
   factory Product.fromJson(Map<String, dynamic> jsonObject) {
     return Product(
       jsonObject['id'],
       jsonObject['collectionId'],
-      jsonObject['thumbnail'],
+      'https://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['thumbnail']}',
       jsonObject['description'],
-      jsonObject['discountprice'],
+      jsonObject['discount_price'],
       jsonObject['price'],
       jsonObject['popularity'],
       jsonObject['name'],
