@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 
 abstract class IProductDatasurse {
   Future<List<Product>> getProduct();
+  Future<List<Product>> getHotest();
+  Future<List<Product>> getBestSeller();
 }
 
 class ProductRemoteDataSource extends IProductDatasurse {
@@ -13,6 +15,46 @@ class ProductRemoteDataSource extends IProductDatasurse {
   Future<List<Product>> getProduct() async {
     try {
       var response = await _dio.get('collections/products/records');
+      return response.data['items']
+          .map<Product>((jsonObject) => Product.fromJson(jsonObject))
+          .toList();
+    } on DioError catch (ex) {
+      throw apiException(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw apiException(0, 'unknown Error');
+    }
+  }
+
+  @override
+  Future<List<Product>> getBestSeller() async {
+    try {
+      Map<String, String> qPramas = {
+        'filter': 'popularity="Hotest"',
+      };
+      var response = await _dio.get(
+        'collections/products/records',
+        queryParameters: qPramas,
+      );
+      return response.data['items']
+          .map<Product>((jsonObject) => Product.fromJson(jsonObject))
+          .toList();
+    } on DioError catch (ex) {
+      throw apiException(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw apiException(0, 'unknown Error');
+    }
+  }
+
+  @override
+  Future<List<Product>> getHotest() async {
+    try {
+      Map<String, String> qPramas = {
+        'filter': 'popularity="Best Seller"',
+      };
+      var response = await _dio.get(
+        'collections/products/records',
+        queryParameters: qPramas,
+      );
       return response.data['items']
           .map<Product>((jsonObject) => Product.fromJson(jsonObject))
           .toList();

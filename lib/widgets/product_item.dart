@@ -30,12 +30,12 @@ class ProductItem extends StatelessWidget {
               children: [
                 const SizedBox(width: double.infinity),
                 SizedBox(
-                    height: 98,
-                    width: 98,
+                    height: 110,
+                    width: 100,
                     child: CachedImage(imageUrl: product.thumbnail)),
                 Positioned(
-                  top: 10,
-                  right: 10,
+                  top: 0,
+                  right: 5,
                   child: SizedBox(
                     width: 24,
                     height: 24,

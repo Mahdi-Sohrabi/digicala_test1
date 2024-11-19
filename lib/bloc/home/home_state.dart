@@ -13,5 +13,14 @@ class HomeRequestSccessState extends HomeState {
   Either<String, List<BannerCampain>> bannerList;
   Either<String, List<Category1>> categoryList;
   Either<String, List<Product>> productList;
-  HomeRequestSccessState(this.bannerList, this.categoryList, this.productList);
+  Either<String, List<Product>> hotestProductList;
+  Either<String, List<Product>> bestSellerProductList;
+
+  HomeRequestSccessState(
+    this.bannerList,
+    this.categoryList,
+    this.productList,
+    this.hotestProductList,
+    this.bestSellerProductList,
+  );
 }
