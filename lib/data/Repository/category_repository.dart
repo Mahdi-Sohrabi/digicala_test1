@@ -15,7 +15,7 @@ class CategoryRepository extends ICategoryRepository {
     try {
       var response = await _datasource.getGategories();
       return right(response);
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
     }
   }

@@ -17,7 +17,7 @@ class ProductRepository extends IProductRepository {
     try {
       var response = await _datasource.getProduct();
       return right(response);
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
     }
   }
@@ -27,7 +27,7 @@ class ProductRepository extends IProductRepository {
     try {
       var response = await _datasource.getBestSeller();
       return right(response);
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
     }
   }
@@ -37,7 +37,7 @@ class ProductRepository extends IProductRepository {
     try {
       var response = await _datasource.getHotest();
       return right(response);
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
     }
   }

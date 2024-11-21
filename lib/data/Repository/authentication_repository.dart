@@ -22,7 +22,7 @@ class AuthenticationRepository extends IAuthRepository {
     try {
       await _datasource.regster('mahdi0915_13', '12345678', '12345678');
       return right('ثبتنام انجام شد!');
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا محتوای متنی ندارد');
     }
   }
@@ -37,7 +37,7 @@ class AuthenticationRepository extends IAuthRepository {
       } else {
         return left('خطایی در ورود پیش آمده');
       }
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left('${ex.message}');
     }
   }

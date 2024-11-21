@@ -19,9 +19,9 @@ class BannerRemoteDatasource extends IBannerDatasource {
           .toList();
       // ignore: deprecated_member_use
     } on DioError catch (ex) {
-      throw apiException(ex.response?.statusCode, ex.response?.data['message']);
+      throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
     } catch (ex) {
-      throw apiException(0, 'unknown Error');
+      throw ApiException(0, 'unknown Error');
     }
   }
 }

@@ -16,7 +16,7 @@ class BannerRepository extends IBannerRepository {
     try {
       var response = await _datasource.getBanners();
       return right(response);
-    } on apiException catch (ex) {
+    } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
     }
   }

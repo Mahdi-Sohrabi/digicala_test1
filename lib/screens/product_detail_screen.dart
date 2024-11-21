@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:digicala_test1/data/Repository/product_detail_repository.dart';
+import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:flutter/material.dart';
@@ -478,11 +480,13 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             const SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.only(top: 20, right: 34, left: 34),
+                padding:
+                    EdgeInsets.only(top: 40, right: 20, left: 20, bottom: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     PriceTagButton(),
+                    SizedBox(height: 20),
                     AddToBasketButton(),
                   ],
                 ),
@@ -503,12 +507,34 @@ class AddToBasketButton extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        Container(
-          height: 60,
-          width: 140,
-          decoration: BoxDecoration(
-            color: AppColors.blueApp,
-            borderRadius: BorderRadius.circular(15),
+        GestureDetector(
+          onTap: () async {
+            print(
+                '///////////////////////////////////////////////////////////////////////');
+            IDetailProductRepository repository = locator.get();
+            var respons = await repository.getProductImage();
+            respons.fold(
+              (l) {
+                print(l);
+              },
+              (r) {
+                r.forEach(
+                  (element) {
+                    print(element.imageUrl);
+                  },
+                );
+              },
+            );
+            print(
+                '///////////////////////////////////////////////////////////////////////');
+          },
+          child: Container(
+            height: 60,
+            width: 140,
+            decoration: BoxDecoration(
+              color: AppColors.blueApp,
+              borderRadius: BorderRadius.circular(15),
+            ),
           ),
         ),
         ClipRRect(
