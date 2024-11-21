@@ -1,9 +1,11 @@
+import 'package:digicala_test1/bloc/product/product_bloc.dart';
 import 'package:digicala_test1/data/model/product.dart';
 import 'package:digicala_test1/screens/product_detail_screen.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
 import 'package:digicala_test1/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductItem extends StatelessWidget {
   Product product;
@@ -19,10 +21,10 @@ class ProductItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return ProductDetailScreen();
-            },
-          ));
+              builder: (context) => BlocProvider(
+                    create: (context) => ProductBloc(),
+                    child: ProductDetailScreen(),
+                  )));
         },
         child: Container(
           width: 160,
