@@ -28,9 +28,7 @@ class ProductRemoteDataSource extends IProductDatasurse {
   @override
   Future<List<Product>> getBestSeller() async {
     try {
-      Map<String, String> qPramas = {
-        'filter': 'popularity="Hotest"',
-      };
+      Map<String, String> qPramas = {'filter': 'popularity="Hotest"'};
       var response = await _dio.get(
         'collections/products/records',
         queryParameters: qPramas,
@@ -48,9 +46,7 @@ class ProductRemoteDataSource extends IProductDatasurse {
   @override
   Future<List<Product>> getHotest() async {
     try {
-      Map<String, String> qPramas = {
-        'filter': 'popularity="Best Seller"',
-      };
+      Map<String, String> qPramas = {'filter': 'popularity="Best Seller"'};
       var response = await _dio.get(
         'collections/products/records',
         queryParameters: qPramas,

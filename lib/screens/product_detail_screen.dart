@@ -4,6 +4,7 @@ import 'package:digicala_test1/bloc/product/product_event.dart';
 import 'package:digicala_test1/bloc/product/product_state.dart';
 import 'package:digicala_test1/data/Repository/product_detail_repository.dart';
 import 'package:digicala_test1/data/model/product_image.dart';
+import 'package:digicala_test1/data/model/variant_type.dart';
 import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/utils/constants/colors.dart';
 import 'package:digicala_test1/utils/style/styles.dart';
@@ -91,7 +92,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ),
                 if (state is ProductDietailResponseState) ...{
-                  state.getProductImage.fold(
+                  state.productImage.fold(
                     (exception) {
                       return SliverToBoxAdapter(
                         child: Text(exception),
@@ -102,57 +103,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     },
                   )
                 },
+                if (state is ProductDietailResponseState) ...{
+                  state.productVariant.fold(
+                    (exception) {
+                      return SliverToBoxAdapter(
+                        child: Text(exception),
+                      );
+                    },
+                    (VariantList) {
+                      for (var variant in VariantList) {
+                        print(variant.variantType.title);
+                      }
+                      return SliverToBoxAdapter(child: Text('data'));
+                    },
+                  )
+                },
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, right: 44, left: 44),
+                    padding: EdgeInsets.only(top: 20, right: 44, left: 44),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
-                          'انتخاب رنگ',
-                          style: TextStyle(fontFamily: 'sm', fontSize: 15),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              width: 26,
-                              height: 26,
-                              decoration: const BoxDecoration(
-                                color: AppColors.redApp,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              width: 26,
-                              height: 26,
-                              decoration: const BoxDecoration(
-                                color: AppColors.redApp,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              width: 26,
-                              height: 26,
-                              decoration: const BoxDecoration(
-                                color: AppColors.redApp,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10),
                         const Text(
                           'انتخاب حافطه داخلی',
                           style: TextStyle(fontFamily: 'sm', fontSize: 15),
@@ -228,7 +199,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -436,7 +407,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                 ),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.only(
                         top: 40, right: 20, left: 20, bottom: 30),
@@ -459,13 +430,86 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-class GalleryWidget extends StatelessWidget {
+class ColorVariants extends StatelessWidget {
+  VariantType variantType;
+  ColorVariants(
+    this.variantType, {
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20, right: 44, left: 44),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              variantType.title!,
+              style: TextStyle(fontFamily: 'sm', fontSize: 15),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  width: 26,
+                  height: 26,
+                  decoration: const BoxDecoration(
+                    color: AppColors.redApp,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  width: 26,
+                  height: 26,
+                  decoration: const BoxDecoration(
+                    color: AppColors.redApp,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  width: 26,
+                  height: 26,
+                  decoration: const BoxDecoration(
+                    color: AppColors.redApp,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GalleryWidget extends StatefulWidget {
   List<ProductImage> productImageList;
+  int celectedItem = 0;
+
   GalleryWidget(
     this.productImageList, {
     super.key,
   });
 
+  @override
+  State<GalleryWidget> createState() => _GalleryWidgetState();
+}
+
+class _GalleryWidgetState extends State<GalleryWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -507,7 +551,8 @@ class GalleryWidget extends StatelessWidget {
                       SizedBox(
                           height: 150,
                           child: CachedImage(
-                            imageUrl: productImageList[0].imageUrl,
+                            imageUrl: widget
+                                .productImageList[widget.celectedItem].imageUrl,
                           )),
                       const Spacer(),
                       Image.asset('assets/images/icon_favorite_deactive.png'),
@@ -519,27 +564,35 @@ class GalleryWidget extends StatelessWidget {
               SizedBox(
                 height: 70,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 44, right: 44),
+                  padding: const EdgeInsets.only(left: 44, right: 44, top: 4),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: productImageList.length,
+                    itemCount: widget.productImageList.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: const EdgeInsets.only(right: 15),
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 1, color: AppColors.greyApp),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.celectedItem = index;
+                          });
+                        },
+                        child: Container(
+                          width: 70,
+                          height: 70,
+                          margin: const EdgeInsets.only(right: 15),
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(width: 1, color: AppColors.greyApp),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(6),
+                              child: CachedImage(
+                                imageUrl:
+                                    widget.productImageList[index].imageUrl,
+                              )),
                         ),
-                        child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: CachedImage(
-                              imageUrl: productImageList[index].imageUrl,
-                            )),
                       );
                     },
                   ),
