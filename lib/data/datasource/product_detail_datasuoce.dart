@@ -7,7 +7,7 @@ import 'package:digicala_test1/util/apiException.dart';
 import 'package:dio/dio.dart';
 
 abstract class IDetailProductDatasuoce {
-  Future<List<ProductImage>> getGallery();
+  Future<List<ProductImage>> getGallery(String PorductId);
   Future<List<VariantType>> getVariantTypes();
   Future<List<Variant>> getVariant();
   Future<List<ProductVarint>> getProductVariants();
@@ -17,9 +17,9 @@ class DetailProductRemoteDatasuoce extends IDetailProductDatasuoce {
   final Dio _dio = locator.get();
 
   @override
-  Future<List<ProductImage>> getGallery() async {
+  Future<List<ProductImage>> getGallery(String PorductId) async {
     try {
-      Map<String, String> qParams = {'filter': 'product_id="78n4wqor3hhnkju"'};
+      Map<String, String> qParams = {'filter': 'product_id="$PorductId"'};
       var respones = await _dio.get('collections/gallery/records',
           queryParameters: qParams);
 

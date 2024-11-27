@@ -7,7 +7,7 @@ import 'package:digicala_test1/di/di.dart';
 import 'package:digicala_test1/util/apiException.dart';
 
 abstract class IDetailProductRepository {
-  Future<Either<String, List<ProductImage>>> getProductImage();
+  Future<Either<String, List<ProductImage>>> getProductImage(String PorductId);
   Future<Either<String, List<VariantType>>> getVariantTypes();
   Future<Either<String, List<ProductVarint>>> getProductVariants();
 }
@@ -15,9 +15,10 @@ abstract class IDetailProductRepository {
 class DetailProductRepository extends IDetailProductRepository {
   final IDetailProductDatasuoce _datasource = locator.get();
   @override
-  Future<Either<String, List<ProductImage>>> getProductImage() async {
+  Future<Either<String, List<ProductImage>>> getProductImage(
+      String PorductId) async {
     try {
-      var response = await _datasource.getGallery();
+      var response = await _datasource.getGallery(PorductId);
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
