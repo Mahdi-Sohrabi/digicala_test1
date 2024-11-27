@@ -24,8 +24,8 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
-    BlocProvider.of<ProductBloc>(context)
-        .add(ProductInitalizeEvent(widget.product.id));
+    BlocProvider.of<ProductBloc>(context).add(
+        ProductInitalizeEvent(widget.product.id, widget.product.categoryId));
     super.initState();
   }
 
@@ -48,38 +48,53 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   )
                 ],
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(right: 30, left: 30, top: 20),
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 16),
-                          Image.asset('assets/images/icon_apple_blue.png'),
-                          const Expanded(
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              'آیفون',
-                              style: TextStyle(
-                                color: AppColors.blueApp,
-                                fontFamily: 'SB',
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          Image.asset('assets/images/icon_back.png'),
-                          const SizedBox(width: 10),
-                        ],
+                if (state is ProductDietailResponseState) ...{
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 30, left: 30, top: 20),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Image.asset('assets/images/icon_apple_blue.png'),
+                            Expanded(
+                                child: state.productCategory.fold(
+                              (l) {
+                                return Text(
+                                  textAlign: TextAlign.center,
+                                  'دسته بندی',
+                                  style: TextStyle(
+                                    color: AppColors.blueApp,
+                                    fontFamily: 'SB',
+                                    fontSize: 16,
+                                  ),
+                                );
+                              },
+                              (productCategory) {
+                                return Text(
+                                  textAlign: TextAlign.center,
+                                  productCategory.title!,
+                                  style: TextStyle(
+                                    color: AppColors.blueApp,
+                                    fontFamily: 'SB',
+                                    fontSize: 16,
+                                  ),
+                                );
+                              },
+                            )),
+                            Image.asset('assets/images/icon_back.png'),
+                            const SizedBox(width: 10),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                },
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.only(top: 32, bottom: 20),
@@ -456,8 +471,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       ),
                       const Spacer(),
                       SizedBox(
-                        height: 200,
-                        width: 200,
+                        height: 150,
                         child: CachedImage(
                           imageUrl: (widget.productImageList.isEmpty)
                               ? widget.defaulteProductThumnail

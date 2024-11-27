@@ -1,3 +1,4 @@
+import 'package:digicala_test1/data/model/category1.dart';
 import 'package:digicala_test1/data/model/product_image.dart';
 import 'package:digicala_test1/data/model/product_variant.dart';
 import 'package:digicala_test1/data/model/variant.dart';
@@ -11,6 +12,7 @@ abstract class IDetailProductDatasuoce {
   Future<List<VariantType>> getVariantTypes();
   Future<List<Variant>> getVariant();
   Future<List<ProductVarint>> getProductVariants();
+  Future<Category1> getProductCategory(String CategoryId);
 }
 
 class DetailProductRemoteDatasuoce extends IDetailProductDatasuoce {
@@ -82,6 +84,20 @@ class DetailProductRemoteDatasuoce extends IDetailProductDatasuoce {
       }
 
       return productVariantList;
+    } on DioError catch (ex) {
+      throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw ApiException(0, 'unknown erorr');
+    }
+  }
+
+  @override
+  Future<Category1> getProductCategory(String categoryId) async {
+    try {
+      Map<String, String> qParams = {'filter': 'id="$categoryId"'};
+      var respones = await _dio.get('collections/category/records',
+          queryParameters: qParams);
+      return Category1.fromMapJson(respones.data['items'][0]);
     } on DioError catch (ex) {
       throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
     } catch (ex) {
