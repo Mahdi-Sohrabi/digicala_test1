@@ -10,8 +10,8 @@ import 'package:dio/dio.dart';
 abstract class IDetailProductDatasuoce {
   Future<List<ProductImage>> getGallery(String PorductId);
   Future<List<VariantType>> getVariantTypes();
-  Future<List<Variant>> getVariant();
-  Future<List<ProductVarint>> getProductVariants();
+  Future<List<Variant>> getVariant(String productId);
+  Future<List<ProductVarint>> getProductVariants(String productId);
   Future<Category1> getProductCategory(String CategoryId);
 }
 
@@ -51,9 +51,9 @@ class DetailProductRemoteDatasuoce extends IDetailProductDatasuoce {
   }
 
   @override
-  Future<List<Variant>> getVariant() async {
+  Future<List<Variant>> getVariant(String productId) async {
     try {
-      Map<String, String> qParams = {'filter': 'product_id="5vvww65pv6nviw6"'};
+      Map<String, String> qParams = {'filter': 'product_id="$productId"'};
 
       var respones = await _dio.get('collections/variants/records',
           queryParameters: qParams);
@@ -69,9 +69,9 @@ class DetailProductRemoteDatasuoce extends IDetailProductDatasuoce {
   }
 
   @override
-  Future<List<ProductVarint>> getProductVariants() async {
+  Future<List<ProductVarint>> getProductVariants(String productId) async {
     var variantTypeList = await getVariantTypes();
-    var variantList = await getVariant();
+    var variantList = await getVariant(productId);
 
     List<ProductVarint> productVariantList = [];
 

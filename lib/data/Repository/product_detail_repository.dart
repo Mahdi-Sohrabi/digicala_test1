@@ -10,7 +10,8 @@ import 'package:digicala_test1/util/apiException.dart';
 abstract class IDetailProductRepository {
   Future<Either<String, List<ProductImage>>> getProductImage(String PorductId);
   Future<Either<String, List<VariantType>>> getVariantTypes();
-  Future<Either<String, List<ProductVarint>>> getProductVariants();
+  Future<Either<String, List<ProductVarint>>> getProductVariants(
+      String productId);
   Future<Either<String, Category1>> getProductCategory(String categoryId);
 }
 
@@ -38,9 +39,10 @@ class DetailProductRepository extends IDetailProductRepository {
   }
 
   @override
-  Future<Either<String, List<ProductVarint>>> getProductVariants() async {
+  Future<Either<String, List<ProductVarint>>> getProductVariants(
+      String productId) async {
     try {
-      var response = await _datasource.getProductVariants();
+      var response = await _datasource.getProductVariants(productId);
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message ?? 'خطا متوای متنی ندارد');
